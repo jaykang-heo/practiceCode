@@ -2,10 +2,49 @@ from . import mediumCodeTest
 
 def threeNumberSum(array, targetSum):
     # Write your code here.
-    pass
+    array.sort()
+    triplets = []
+    for i in range(len(array)-2):
+        left=i+2
+        right =len(array)-1
+        while left < right:
+            total = array[i]+array[left]+array[right]
+            if total ==targetSum:
+                triplets.append([array[i],array[left],array[right]])
+                left+=1
+                right-=1
+            elif total < targetSum:
+                left+=1
+            elif total>targetSum:
+                right-=1
+    return triplets
 
 def smallestDifference(arrayOne, arrayTwo):
     # Write your code here.
+    arrayOne.sort()
+    arrayTwo.sort()
+    id1 =0
+    id2=0
+    small = float('inf')
+    cur = float('inf')
+    smallestpair = []
+    while id1 < len(arrayOne) and id2<len(arrayTwo):
+        first = arrayOne[id1]
+        second = arrayTwo[id2]
+        if first < second:
+            cur = second - first
+            id1 += 1
+        elif second < first:
+            cur = first - second
+            id2 +=2
+        else:
+            return [first, second]
+        if small > cur:
+            small = cur
+            smallestpair = [first,second]
+    return smallestpair
+
+
     pass
 def moveElementToEnd(array, toMove):
     # Write your code here.

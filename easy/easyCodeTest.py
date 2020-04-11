@@ -239,8 +239,8 @@ with open('keepTrack.json') as f:
     data['num'] += 1
     print('Congratulations! You Are Awesome!')
     print('Total Number For Easy Code', data['num'])
-    with open('keepTrack.json') as file:
-        json.dump(data, file)
+with open('keepTrack.json', 'w') as file:
+    json.dump(data, file)
 open('easyCode.py', 'w')
 copyfile('easyCodeOriginal.py', 'easyCode.py')
 
