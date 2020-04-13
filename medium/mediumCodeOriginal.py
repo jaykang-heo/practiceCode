@@ -1,4 +1,4 @@
-from . import mediumCodeTest
+from medium import mediumCodeTest
 
 def threeNumberSum(array, targetSum):
     # Write your code here.
@@ -7,56 +7,22 @@ def threeNumberSum(array, targetSum):
 def smallestDifference(arrayOne, arrayTwo):
     # Write your code here.
     pass
+
 def moveElementToEnd(array, toMove):
     # Write your code here.
     pass
+
 def isMonotonic(array):
     # Write your code here.
     pass
-def spiralTraverse(matrix):
+
+def spiralTraverse(array):
     # Write your code here.
     pass
+
 def longestPeak(array):
     # Write your code here.
     pass
-class BST:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
-
-    def insert(self, value):
-        # Write your code here.
-        # Do not edit the return statement of this method.
-        return self
-
-    def contains(self, value):
-        # Write your code here.
-        pass
-
-    def remove(self, value):
-        # Write your code here.
-        # Do not edit the return statement of this method.
-        return self
-class BST:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
-
-    def insert(self, value):
-        # Write your code here.
-        # Do not edit the return statement of this method.
-        return self
-
-    def contains(self, value):
-        # Write your code here.
-        pass
-
-    def remove(self, value):
-        # Write your code here.
-        # Do not edit the return statement of this method.
-        return self
 
 def inOrderTraverse(tree, array):
     # Write your code here.
@@ -71,27 +37,35 @@ def preOrderTraverse(tree, array):
 def postOrderTraverse(tree, array):
     # Write your code here.
     pass
+
 def invertBinaryTree(tree):
     # Write your code here.
     pass
+
 def maxSubsetSumNoAdjacent(array):
     # Write your code here.
     pass
+
 def numberOfWaysToMakeChange(n, denoms):
     # Write your code here.
     pass
+
 def minNumberOfCoinsForChange(n, denoms):
     # Write your code here.
     pass
+
 def levenshteinDistance(str1, str2):
     # Write your code here.
     pass
+
 def kadanesAlgorithm(array):
     # Write your code here.
     pass
+
 def hasSingleCycle(array):
     # Write your code here.
     pass
+
 class Node:
     def __init__(self, name):
         self.children = []
@@ -104,18 +78,20 @@ class Node:
     def breadthFirstSearch(self, array):
         # Write your code here.
         pass
+
 def riverSizes(matrix):
     # Write your code here.
     pass
+
 class AncestralTree:
     def __init__(self, name):
         self.name = name
         self.ancestor = None
 
-
 def getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo):
     # Write your code here.
     pass
+
 class MinHeap:
     def __init__(self, array):
         # Do not edit the line below.
@@ -149,7 +125,6 @@ class LinkedList:
         self.value = value
         self.next = None
 
-
 def removeKthNodeFromEnd(head, k):
     # Write your code here.
     pass
@@ -182,15 +157,19 @@ class MinMaxStack:
     def getMax(self):
         # Write your code here.
         pass
+
 def balancedBrackets(string):
     # Write your code here.
     pass
+
 def longestPalindromicSubstring(string):
     # Write your code here.
     pass
+
 def groupAnagrams(words):
     # Write your code here.
     pass
+
 class SuffixTrie:
     def __init__(self, string):
         self.root = {}
