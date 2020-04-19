@@ -1,173 +1,70 @@
 from medium import mediumCodeTest
 
-def threeNumberSum(array, targetSum):
-    # Write your code here.
-    array.sort()
-    li =[]
-    for i in range(len(array)-2):
-        left=i+1
-        right=len(array)-1
-        while left<right:
-            temp = array[i]+array[left]+array[right]
-            if temp == targetSum:
-                li.append([array[i],array[left],array[right]])
-                left+=1
-                right-=1
-            elif temp >targetSum:
-                right-=1
-            elif temp<targetSum:
-                left+=1
-    return li
-
-def smallestDifference(arrayOne, arrayTwo):
-    # Write your code here.
-    arrayTwo.sort()
-    arrayOne.sort()
-    id1,id2=0,0
-    diff, cur=0,0
-    pair= []
-    while id1<len(arrayOne) and id2<len(arrayTwo):
-        temp1 = arrayOne[id1]
-        temp2= arrayTwo[id2]
-        if temp1>temp2:
-            cur = temp1-temp2
-            id2+=1
-        elif temp2>temp1:
-            cur = temp2-temp1
-            id1+=1
-        else:
-            return [temp1,temp2]
-        if diff >cur:
-            diff = cur
-            pair= [temp1,temp2]
-    return pair
-
-def moveElementToEnd(array, toMove):
-    # Write your code here.
-    left=0
-    right = len(array)-1
-    while left<right:
-        while left<right and array[right]==toMove:
-            right-=1
-        if array[left]==toMove:
-            array[left],array[right]=array[right],array[left]
-        right+=1
-    return array
-
-def isMonotonic(array):
-    # Write your code here.
-    increasing=True
-    decreasing=False
-    for i in range(1,len(array)):
-        if array[i-1]<array[i]:
-            increasing= True
-        if array[i-1]>array[i]:
-            decreasing=True
-    return increasing or decreasing
-
-def spiralTraverse(array):
-    # Write your code here.
-    res = []
-    srow,erow=0,len(array)-1
-    scol,ecol=0,len(array[0])-1
-    while srow<=erow and scol<=scol:
-        for col in range(scol,ecol+1):
-            res.append(array[srow][col])
-        for row in range(srow+1,erow+1):
-            res.append(array[row][ecol])
-        for col in reversed(range(scol+1,ecol+1)):
-            if srow==erow:
-                break
-            res.append(array[erow][col])
-        for row in reversed(range(srow,erow)):
-            if scol==ecol:
-                break
-            res.append(array[row][scol])
-        srow+=1
-        erow-=1
-        scol+=1
-        ecol-=1
-    return res
-
-def longestPeak(array):
-    # Write your code here.
-    peak = 0
-    i = 1
-    while i < len(array)-1:
-        ispeak = array[i-1] <array[i] and array[i] > array[i-1]
-        if not ispeak:
-            i+=1
-            continue
-        left = i-2
-        while left >=0 and array[left] < array[left+1]:
-            left-=1
-        right=i+2
-        while right <len(array) and array[right]>array[right-1]:
-            right+=1
-        temp = right-left-1
-        peak = max(temp, peak)
-        i = right
-    return peak
-
-
-def inOrderTraverse(tree, array):
-    # Write your code here.
-    pass
-
-
-def preOrderTraverse(tree, array):
-    # Write your code here.
-    pass
-
-
-def postOrderTraverse(tree, array):
-    # Write your code here.
-    pass
-
-def invertBinaryTree(tree):
-    # Write your code here.
-    pass
-
-def maxSubsetSumNoAdjacent(array):
-    # Write your code here.
-    pass
-
-def numberOfWaysToMakeChange(n, denoms):
-    # Write your code here.
-    pass
-
-def minNumberOfCoinsForChange(n, denoms):
-    # Write your code here.
-    pass
 
 def levenshteinDistance(str1, str2):
     # Write your code here.
+    # small = str1 if len(str1) <len(str2) else str2
+    # big = str2 if len(str2)>len(str1) else str1
+    # even = [x for x in range(len(small)+1)]
+    # odd = [None for x in range(len(small)+1)]
+    # for i in range(1,len(big)+1):
+    #     if i%2==1:
+    #         cur = odd
+    #         prev = even
+    #     else:
+    #         cur = even
+    #         prev = odd
+    #     cur[0]=i
+    #     for j in range(1,len(small)+1):
+    #         if big[i-1]==small[j-1]:
+    #             cur[j]=prev[j-1]
+    #         else:
+    #             cur[j] = min(prev[j-1],prev[j],cur[j-1])
+    # return even[-1] if len(big)%2==0 else odd[-1]
     pass
 
-def kadanesAlgorithm(array):
-    # Write your code here.
-    pass
-
-def hasSingleCycle(array):
-    # Write your code here.
-    pass
-
-class Node:
-    def __init__(self, name):
-        self.children = []
-        self.name = name
-
-    def addChild(self, name):
-        self.children.append(Node(name))
-        return self
-
-    def breadthFirstSearch(self, array):
-        # Write your code here.
-        pass
 
 def riverSizes(matrix):
     # Write your code here.
-    pass
+    def traverseNode(i,j,matrix,visited,sizes):
+        currentRiverSize = 0
+        nodesToExplore = [[i,j]]
+        while len(nodesToExplore):
+            currentNode = nodesToExplore.pop()
+            i= currentNode[0]
+            j=currentNode[1]
+            if visited[i][j]:
+                continue
+            visited[i][j] = True
+            if matrix[i][j]==0:
+                continue
+            currentRiverSize +=1
+            unvisitedNeighbors = getUnvisitedNeighbors(i,j,matrix,visited)
+            for neighbor in unvisitedNeighbors:
+                nodesToExplore.append(neighbor)
+        if currentRiverSize >0:
+            sizes.append(currentRiverSize)
+
+    def getUnvisitedNeighbors(i,j,matrix,visited):
+        unvisitedNeighbors = []
+        if i >0 and not visited[i-1][j]:
+            unvisitedNeighbors.append([i-1,j])
+        if i < len(matrix)-1 and not visited[i+1][j]:
+            unvisitedNeighbors.append([i+1,j])
+        if j> 0 and not visited[i][j-1]:
+            unvisitedNeighbors.append([i,j-1])
+        if j <len(matrix[0])-1 and not visited[i][j+1]:
+            unvisitedNeighbors.append([i,j+1])
+        return unvisitedNeighbors
+
+    sizes = []
+    visited = [[False for value in row] for row in matrix]
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            if visited[i][j]:
+                continue
+            traverseNode(i,j,matrix,visited,sizes)
+    return sizes
 
 class AncestralTree:
     def __init__(self, name):
@@ -176,98 +73,106 @@ class AncestralTree:
 
 def getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo):
     # Write your code here.
-    pass
+    def backtrackAncestralTree(lowerDescendant, higherDescendant, diff):
+        while diff >0:
+            lowerDescendant = lowerDescendant.ancestor
+            diff -=1
+        while lowerDescendant != higherDescendant:
+            lowerDescendant = lowerDescendant.ancestor
+            higherDescendant = higherDescendant.ancestor
+        return lowerDescendant
 
-class MinHeap:
-    def __init__(self, array):
-        # Do not edit the line below.
-        self.heap = self.buildHeap(array)
+    def getDescendantDepth(descendant, topAncestor):
+        depth = 0
+        while descendant != topAncestor:
+            depth +=1
+            descendant = descendant.ancestor
+        return depth
 
-    def buildHeap(self, array):
-        # Write your code here.
-        pass
+    depthOne = getDescendantDepth(descendantOne, topAncestor)
+    depthTwo = getDescendantDepth(descendantTwo, topAncestor)
+    if depthOne >depthTwo:
+        return backtrackAncestralTree(descendantOne, descendantTwo, depthOne-depthTwo)
+    else:
+        return backtrackAncestralTree(descendantOne, descendantTwo, depthTwo-depthOne)
 
-    def siftDown(self):
-        # Write your code here.
-        pass
 
-    def siftUp(self):
-        # Write your code here.
-        pass
-
-    def peek(self):
-        # Write your code here.
-        pass
-
-    def remove(self):
-        # Write your code here.
-        pass
-
-    def insert(self, value):
-        # Write your code here.
-        pass
-class LinkedList:
-    def __init__(self, value):
-        self.value = value
-        self.next = None
-
-def removeKthNodeFromEnd(head, k):
-    # Write your code here.
-    pass
 def getPermutations(array):
     # Write your code here.
+    # def helper(i, array, permutation):
+    #     if i==len(array)-1:
+    #         permutation.append(array[:])
+    #     else:
+    #         for j in range(i,len(array)):
+    #             array[i],array[j] = array[j],array[i]
+    #             helper(i+1,array,permutation)
+    #             array[i],array[j] = array[j],array[i]
+    # permutations = []
+    # helper(0, array, permutations)
+    # return permutations
+    def helper(i, array, permutation):
+        if i ==len(array)-1:
+            permutation.append(array[:])
+        else:
+            for j in range(i,len(array)):
+                array[i],array[j]=array[j],array[i]
+                helper(i+1,array,permutation)
+                array[i],array[j]=array[j],array[i]
+    permutation = []
+    helper(0,array,permutation)
+    return permutation
     pass
+
 def powerset(array):
     # Write your code here.
+    # subsets = [[]]
+    # for ele in array:
+    #     for i in range(len(subsets)):
+    #         currentSubset = subsets[i]
+    #         subsets.append(currentSubset+[ele])
+    # return subsets
+
+    subsets = [[]]
+    for ele in array:
+        for j in range(len(subsets)):
+            cur = subsets[j]
+            subsets.append(cur+[ele])
+    return subsets
     pass
-def searchInSortedMatrix(matrix, target):
-    # Write your code here.
-    pass
-class MinMaxStack:
-    def peek(self):
-        # Write your code here.
-        pass
 
-    def pop(self):
-        # Write your code here.
-        pass
-
-    def push(self, number):
-        # Write your code here.
-        pass
-
-    def getMin(self):
-        # Write your code here.
-        pass
-
-    def getMax(self):
-        # Write your code here.
-        pass
-
-def balancedBrackets(string):
-    # Write your code here.
-    pass
 
 def longestPalindromicSubstring(string):
     # Write your code here.
+    # def getlongestpalindromefrom(string, leftidx, rightidx):
+    #     while leftidx >= 0 and rightidx < len(string):
+    #         if string[leftidx] != string[rightidx]:
+    #             break
+    #         leftidx -=1
+    #         rightidx +=1
+    #     return [leftidx+1,rightidx]
+    # currentLongest = [0,1]
+    # for i in range(1,len(string)):
+    #     odd = getlongestpalindromefrom(string, i-1,i+1)
+    #     even = getlongestpalindromefrom(string, i-1,i)
+    #     longest = max(odd,even,key=lambda x:x[1]-x[0])
+    #     currentLongest = max(longest, currentLongest, key=lambda x:x[1]-x[0])
+    # return string[currentLongest[0]:currentLongest[1]]
+
+    def helper(string, left, right):
+        while left >=0 and right < len(string):
+            if string[left] != string[right]:
+                break
+            left -=1
+            right +=1
+        return [left+1, right]
+    cur = [0,1]
+    for i in range(1,len(string)):
+        odd = helper(string,i-1,i+1)
+        even = helper(string, i-1,i)
+        long = max(odd, even , key=lambda x:x[1]-x[0])
+        cur = max(long, cur, key=lambda x:x[1]-x[0])
+    return string[cur[0]:cur[1]]
     pass
 
-def groupAnagrams(words):
-    # Write your code here.
-    pass
-
-class SuffixTrie:
-    def __init__(self, string):
-        self.root = {}
-        self.endSymbol = "*"
-        self.populateSuffixTrieFrom(string)
-
-    def populateSuffixTrieFrom(self, string):
-        # Write your code here.
-        pass
-
-    def contains(self, string):
-        # Write your code here.
-        pass
 
 mediumCodeTest
